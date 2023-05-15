@@ -25,7 +25,7 @@ dose = st.number_input('Enter the value for dose')
 alpha = st.number_input('Enter alpha')
 if st.button('Calculate Risk'):
     
-    risk = calculate_risk(k, dose)
+    risk = calculate_risk(k, dose,alpha)
 
     
     st.write(f'The calculated risk is: {risk:.4f}')
