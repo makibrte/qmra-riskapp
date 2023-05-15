@@ -15,7 +15,7 @@ def calculate_risk_beta_poisson(alpha, beta, dose):
 
 # Use a selectbox to choose the distribution
 distributions = st.select_slider(
-    'Select a color of the rainbow',
+    'Choose a distribution',
     options=['Exponential', 'Beta-Poisson'])
 #distribution = st.selectbox('Choose a distribution', ('Exponential', 'Beta-Poisson'))
 
