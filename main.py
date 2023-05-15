@@ -12,6 +12,8 @@ st.markdown("""
 
 st.markdown('<p class="big-font">Exponential Distribution Risk Calculator</p>', unsafe_allow_html=True)
 
+st.latex('Risk = 1 - exp(-k * dose)')
+st.latex('Probability = 1 - (1- Risk)^\alpha')
 
 # Define a function to calculate risk
 def calculate_risk(k, dose, alpha):
