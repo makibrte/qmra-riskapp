@@ -16,7 +16,7 @@ st.markdown('<p class="big-font">Exponential Distribution Risk Calculator</p>', 
 # Define a function to calculate risk
 def calculate_risk(k, dose, alpha):
     risk = 1 - np.exp(-k * dose)
-    prob = 1-(1-risk)**alpha
+    prob = 1-np.power((1-risk),alpha)
     return prob
 
 
