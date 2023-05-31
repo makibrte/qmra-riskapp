@@ -1,4 +1,4 @@
 scipy==1.7.1
 matplotlib
 plotly
-streamlit_toggle
+streamlit-toggle-switch
