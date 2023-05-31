@@ -33,7 +33,7 @@ def for_dose_button(identifier):
                         active_color="#11567f", 
                         track_color="#29B5E8"
                         )
-                        
+
 def plot_dist_button(identifier):
     return tog.st_toggle_switch(label="Plot the Distribution", 
                         key=f"for_plot_button_{identifier}", 
@@ -48,7 +48,7 @@ def plot_dist(**kwargs):
     """
     FUNCTION TO CALCULATE THE VALUES FOR THE PLOT BASED ON THE DIST
     """
-    dose_range = np.logspace(0, 7, num=1000, base=10.0)
+    dose_range = np.logspace(-2, 10, num=1000, base=10.0)
     if kwargs['dist'] == 'exp':
         risk_range = [calculate_risk_exp(kwargs['k'], dose, 0, False) for dose in dose_range]
 
@@ -57,6 +57,7 @@ def plot_dist(**kwargs):
 
     elif kwargs['dist'] == 'beta-reg':
         risk_range = [calculate_risk_beta_poisson_regular(kwargs['alpha'], kwargs['beta'], dose) for dose in dose_range]
+    
     return [dose_range, risk_range]
 
 left_column, right_column = st.columns(2)
