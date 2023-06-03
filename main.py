@@ -63,8 +63,12 @@ def plot_dist(**kwargs):
 left_column, right_column = st.columns(2)
 
 
-def display_exponential(identifier, k_optimal, is_optimal = False, for_dose = False):
-    st.subheader('Exponential Distribution')
+def display_exponential(identifier, pathogen = 'None', k_optimal=0, is_optimal = False, for_dose = False):
+    
+    if is_optimal == False: 
+        st.subheader('Exponential Distribution')
+    else:
+        st.subheader(f'Exponential Distribution - {pathogen}')
     st.latex("1 - exp(-k \\times dose)")
 
     k_key = f'k_exp_{identifier}'
@@ -129,8 +133,13 @@ def display_exponential(identifier, k_optimal, is_optimal = False, for_dose = Fa
 
 
 
-def display_beta_poisson_regular(identifier, alpha_optimal, beta_optimal, is_optimal=False):
-    st.subheader('Beta-Poisson Distribution - Regular')
+def display_beta_poisson_regular(identifier, pathogen = 'None', alpha_optimal=0.0, beta_optimal=0.0, is_optimal=False):
+    
+    
+    if is_optimal == False: 
+        st.subheader('Beta-Poisson-Regular')
+    else:
+        st.subheader(f'Beta-Poisson-Regular - {pathogen}') 
     st.latex("1 - [1 + \\frac{dose}{\\beta}]^{-\\alpha}")
 
     alpha_key = f'alpha_beta_{identifier}'
@@ -227,8 +236,12 @@ def display_beta_poisson_approximate_beta(identifier):
 
 
 
-def display_beta_poisson_approximate_n50(identifier, alpha_optimal, n50_optimal, is_optimal=False):
-    st.subheader('Beta-Poisson Distribution - Approximate (N_50)')
+def display_beta_poisson_approximate_n50(identifier, pathogen = 'None', alpha_optimal=0.0, n50_optimal=0.0, is_optimal=False):
+
+    if is_optimal == False: 
+        st.subheader('Beta-Poisson-Approximate')
+    else:
+        st.subheader(f'Beta-Poisson-Approximate - {pathogen}')
     st.latex("1 - [1 + dose \\times \\frac{(2^{\\frac{1}{\\alpha}} - 1)}{N_{50}}]^{-\\alpha}")
     for_dose = for_dose_button(identifier)
     plot_dist_ = plot_dist_button(identifier)
@@ -294,8 +307,13 @@ def display_beta_poisson_approximate_n50(identifier, alpha_optimal, n50_optimal,
         
 
 def display_selection(key):
-    initial_selection = st.selectbox("Choose a Distribution or a Pathogen",
-        ('Distribution', 'Pathogen'), key=key+'123')
+    
+    
+    if "pathogen" in st.experimental_get_query_params():
+        initial_selection = "Pathogen"
+    else:
+        initial_selection = st.selectbox("Choose a Distribution or a Pathogen",
+            ('Distribution', 'Pathogen'), key=key+'123')
     if initial_selection == 'Distribution':
 
         selection = st.selectbox("Choose a Distribution",
@@ -312,15 +330,25 @@ def display_selection(key):
             display_beta_poisson_approximate_n50(key, 0.0, 0.0, False)
     else:
         #TODO: FIGURE OUT THE LAST FEW PATHOGENS
-        selection_pathogen = st.selectbox('Chose a Pathogen',
-            ('Ebola', 'Salmonella', 'Campylobacter jejuni', 'Cryptosporidium parvum', 'Giardia lamblia',
-            'Norovirus', 'Rotavirus', 'Echo', 'Salm'))
+        pathogens = ['Ebola', 'Salmonella', 'Campylobacter jejuni', 'Cryptosporidium parvum', 'Giardia lamblia',
+                'Norovirus', 'Rotavirus', 'Echo', 'Salm']
+        if "pathogen" in st.experimental_get_query_params() and st.experimental_get_query_params()["pathogen"][0] in pathogens:
+            selection_pathogen = st.selectbox('Chose a Pathogen',
+                ('Ebola', 'Salmonella', 'Campylobacter jejuni', 'Cryptosporidium parvum', 'Giardia lamblia',
+                'Norovirus', 'Rotavirus', 'Echo', 'Salm'), index=pathogens.index(st.experimental_get_query_params()["pathogen"][0]),
+                 key=f"pathogen_{key}")
+        else:
+            
+            selection_pathogen = st.selectbox('Chose a Pathogen',
+                ('Ebola', 'Salmonella', 'Campylobacter jejuni', 'Cryptosporidium parvum', 'Giardia lamblia',
+                'Norovirus', 'Rotavirus', 'Echo', 'Salm'),
+                key=f"nonpathogen_{key}")
         if 'k' in optimal_parameters[selection_pathogen]:
-            display_exponential(key, optimal_parameters[selection_pathogen]['k'], True)
+            display_exponential(key, selection_pathogen, optimal_parameters[selection_pathogen]['k'], True)
         elif 'beta' in optimal_parameters[selection_pathogen]:
-            display_beta_poisson_regular(key, optimal_parameters[selection_pathogen]['alpha'], optimal_parameters[selection_pathogen]['beta'], True)
+            display_beta_poisson_regular(key, selection_pathogen, optimal_parameters[selection_pathogen]['alpha'], optimal_parameters[selection_pathogen]['beta'], True)
         elif 'N50' in optimal_parameters[selection_pathogen]:
-            display_beta_poisson_approximate_n50(key, optimal_parameters[selection_pathogen]['alpha'], optimal_parameters[selection_pathogen]['N50'], True)
+            display_beta_poisson_approximate_n50(key, selection_pathogen, optimal_parameters[selection_pathogen]['alpha'], optimal_parameters[selection_pathogen]['N50'], True)
 
 
 with left_column:
@@ -336,19 +364,4 @@ with right_column:
     st.divider() 
 
 
-        
-"""
-REMOVE THE QUOTATIONS TO DISPLAY BOTTOM ROW
-
-
-left_column_2, right_column_2 = st.columns(2)
-with left_column_2:
-    st.header("Box 3")
-    display_selection(key="select_3")
-
-
-with right_column_2:
-    st.header("Box 4")
-    display_selection(key="select_4")
-
-    """
+    
