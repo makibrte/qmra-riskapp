@@ -38,21 +38,42 @@ def plot_dist_button(identifier):
                         track_color="#29B5E8"
                         )
 
-def calc_plot_dist(**kwargs):
+def calc_plot_dist(epsilon=1e-6, n_steps_after_convergence=5, **kwargs):
     """
     FUNCTION TO CALCULATE THE VALUES FOR THE PLOT BASED ON THE DIST
     """
     dose_range = np.logspace(-2, 10, num=1000, base=10.0)
-    if kwargs['dist'] == 'exp':
-        risk_range = [calculate_risk_exp(kwargs['k'], dose, 0, False) for dose in dose_range]
+    risk_range = []
 
-    elif kwargs['dist'] == 'beta-approx':
-        risk_range = [calculate_risk_beta_poisson_approximate(dose, kwargs['alpha'], kwargs['param'], True) for dose in dose_range]
+    converge_count = 0  # count steps after convergence
+    last_risk = None  # keep track of the last computed risk
 
-    elif kwargs['dist'] == 'beta-reg':
-        risk_range = [calculate_risk_beta_poisson_regular(kwargs['alpha'], kwargs['beta'], dose) for dose in dose_range]
-    
-    return [dose_range, risk_range]
+    for dose in dose_range:
+        if kwargs['dist'] == 'exp':
+            risk = calculate_risk_exp(kwargs['k'], dose, 0, False)
+        elif kwargs['dist'] == 'beta-approx':
+            risk = calculate_risk_beta_poisson_approximate(dose, kwargs['alpha'], kwargs['param'], True)
+        elif kwargs['dist'] == 'beta-reg':
+            risk = calculate_risk_beta_poisson_regular(kwargs['alpha'], kwargs['beta'], dose)
+
+        # if we've seen at least one risk before
+        if last_risk is not None:
+            # if the difference between this risk and the last is less than epsilon
+            if abs(risk - last_risk) < epsilon:
+                # increment the convergence count
+                converge_count += 1
+                # if we've counted enough steps past convergence
+                if converge_count >= n_steps_after_convergence:
+                    # stop computing risks
+                    break
+            else:
+                # if the risks haven't converged, reset the counter
+                converge_count = 0
+
+        risk_range.append(risk)
+        last_risk = risk  # update the last computed risk
+
+    return [dose_range[:len(risk_range)], risk_range]
 
 
 def session_state_loader(**kwargs):
@@ -311,9 +332,6 @@ def convert_db_items(data):
         pathogen_names_list.append(pathogen['Name'])
 
     return [optimal_parameters, pathogen_names_list]
-
-
-
 
 
 def main():
