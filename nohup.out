@@ -1,0 +1,377 @@
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Network URL: http://172.31.27.94:8502
+  External URL: http://3.209.42.10:8502
+
+2023-07-06 14:48:02.749 Session with id c254d018-cea3-4fc9-b3a9-ce1e8851a2d7 is already connected! Connecting to a new session.
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+Traceback (most recent call last):
+  File "/home/milicev2/.local/bin/streamlit", line 8, in <module>
+    sys.exit(main())
+  File "/usr/lib/python3/dist-packages/click/core.py", line 764, in __call__
+    return self.main(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/click/core.py", line 717, in main
+    rv = self.invoke(ctx)
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1137, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/usr/lib/python3/dist-packages/click/core.py", line 956, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/usr/lib/python3/dist-packages/click/core.py", line 555, in invoke
+    return callback(*args, **kwargs)
+  File "/home/milicev2/.local/lib/python3.8/site-packages/streamlit/web/cli.py", line 233, in main_run
+    _main_run(target, args, flag_options=kwargs)
+  File "/home/milicev2/.local/lib/python3.8/site-packages/streamlit/web/cli.py", line 269, in _main_run
+    bootstrap.run(file, command_line, args, flag_options)
+  File "/home/milicev2/.local/lib/python3.8/site-packages/streamlit/web/bootstrap.py", line 430, in run
+    asyncio.run(run_server())
+  File "/usr/lib/python3.8/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/usr/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/milicev2/.local/lib/python3.8/site-packages/streamlit/web/bootstrap.py", line 418, in run_server
+    await server.start()
+  File "/home/milicev2/.local/lib/python3.8/site-packages/streamlit/web/server/server.py", line 258, in start
+    start_listening(app)
+  File "/home/milicev2/.local/lib/python3.8/site-packages/streamlit/web/server/server.py", line 118, in start_listening
+    ssl_options = _get_ssl_options(cert_file, key_file)
+  File "/home/milicev2/.local/lib/python3.8/site-packages/streamlit/web/server/server.py", line 145, in _get_ssl_options
+    if not Path(cert_file).exists():
+  File "/usr/lib/python3.8/pathlib.py", line 1407, in exists
+    self.stat()
+  File "/usr/lib/python3.8/pathlib.py", line 1198, in stat
+    return self._accessor.stat(self)
+PermissionError: [Errno 13] Permission denied: '/etc/letsencrypt/live/qmrawiki.org/fullchain.pem'
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Network URL: https://172.31.27.94:8501
+  External URL: https://3.209.42.10:8501
+
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Network URL: https://172.31.27.94:8501
+  External URL: https://3.209.42.10:8501
+
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Network URL: https://172.31.27.94:8501
+  External URL: https://3.209.42.10:8501
+
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Network URL: https://172.31.27.94:8501
+  External URL: https://3.209.42.10:8501
+
+2023-07-24 19:29:02.420 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 337, in display_selection
+    display_exponential(key,0.0,False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 133, in display_exponential
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 19:39:13.687 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 337, in display_selection
+    display_exponential(key,0.0,False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 133, in display_exponential
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 19:41:58.334 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 337, in display_selection
+    display_exponential(key,0.0,False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 133, in display_exponential
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 19:42:01.869 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 337, in display_selection
+    display_exponential(key,0.0,False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 133, in display_exponential
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 21:41:23.095 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 337, in display_selection
+    display_exponential(key,0.0,False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 133, in display_exponential
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 21:42:16.776 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 337, in display_selection
+    display_exponential(key,0.0,False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 133, in display_exponential
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 21:42:29.843 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 339, in display_selection
+    display_beta_poisson_regular(key, 0.0,0.0, False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 196, in display_beta_poisson_regular
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 21:42:31.616 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 343, in display_selection
+    display_beta_poisson_approximate_n50(key, 0.0, 0.0, False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 261, in display_beta_poisson_approximate_n50
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
+2023-07-24 21:42:36.517 Uncaught app exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/scriptrunner/script_runner.py", line 552, in _run_script
+    exec(code, module.__dict__)
+  File "/home/milicev2/qmra-riskapp/main.py", line 379, in <module>
+    main()
+  File "/home/milicev2/qmra-riskapp/main.py", line 375, in main
+    display_selection("select_2", data, pathogen_names)
+  File "/home/milicev2/qmra-riskapp/main.py", line 343, in display_selection
+    display_beta_poisson_approximate_n50(key, 0.0, 0.0, False)
+  File "/home/milicev2/qmra-riskapp/main.py", line 261, in display_beta_poisson_approximate_n50
+    for_dose = for_dose_button(identifier)
+  File "/home/milicev2/qmra-riskapp/main.py", line 47, in for_dose_button
+    return tog.st_toggle_switch(label="Calculate for Dose",
+  File "/usr/local/lib/python3.8/dist-packages/streamlit_toggle/__init__.py", line 28, in st_toggle_switch
+    toggle_value = _component_func(key=key,
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 79, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/metrics_util.py", line 356, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 222, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/components/v1/components.py", line 193, in marshall_component
+    component_state = register_widget(
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 163, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/usr/local/lib/python3.8/dist-packages/streamlit/runtime/state/widgets.py", line 196, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key='for_dose_button_0.0'`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.

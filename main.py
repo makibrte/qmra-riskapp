@@ -55,7 +55,7 @@ def for_dose_button(identifier):
 
 def plot_dist_button(identifier):
     return tog.st_toggle_switch(label="Plot the Distribution", 
-                        key=f"for_plot_button_{identifier}", 
+                        key=f"for_plot_button_{identifier}_{identifier*54}", 
                         default_value=False, 
                         label_after = True, 
                         inactive_color = '#D3D3D3', 
@@ -334,13 +334,13 @@ def display_selection(key, data, pathogen_names_list):
             ("Exponential Distribution", "Beta-Poisson Distribution - Regular", "Beta-Poisson Distribution - Approximate (N_50)"),
             key=key)
         if selection == "Exponential Distribution":
-            display_exponential(key,0.0,False)
+            display_exponential(data, key,0.0,False)
         elif selection == "Beta-Poisson Distribution - Regular":
-            display_beta_poisson_regular(key, 0.0,0.0, False)
+            display_beta_poisson_regular(data, key, 0.0,0.0, False)
         elif selection == "Beta-Poisson Distribution - Approximate (Beta)":
             display_beta_poisson_approximate_beta(key)
         elif selection == "Beta-Poisson Distribution - Approximate (N_50)":
-            display_beta_poisson_approximate_n50(key, 0.0, 0.0, False)
+            display_beta_poisson_approximate_n50(data, key, 0.0, 0.0, False)
     else:
         
         
