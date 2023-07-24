@@ -26,3 +26,11 @@ The output of the streamlit server will be in a nohup.out file. In order to rest
 `nohup /path/to/command > /dev/null 2>&1 &` 
 
 ### Adding SSL certificate
+
+In order to make this application HTTPS compatible and to enable to ability to embed it as an iframe you need to configure the server with the proper SSL certificate. The configuration should placed inside **.streamlit/config.toml**. Here is an example:
+
+`[server]`
+
+`sslCertFile = '<path-to-file>'`
+
+`sslKeyFile = '<path-to-file>'`
