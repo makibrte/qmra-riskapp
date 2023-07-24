@@ -38,7 +38,10 @@ def get_pathogen_names(pathogen_dict):
     pathogen__names_list = [pathogen for pathogen in pathogen_dict]
     return tuple(pathogen__names_list)
 
-        
+def display_microbial_group(data, pathogen):
+    st.write(f'Microbial group: {data[pathogen]["microbial_group"]}')
+
+
     
 def for_dose_button(identifier):
     return tog.st_toggle_switch(label="Calculate for Dose", 
@@ -113,12 +116,13 @@ def session_state_loader(**kwargs):
 left_column, right_column = st.columns(2)
 
 
-def display_exponential(identifier, pathogen = 'None', k_optimal=0.0, is_optimal = False, for_dose = False):
+def display_exponential(data, identifier, pathogen = 'None', k_optimal=0.0, is_optimal = False, for_dose = False):
     
     if is_optimal == False: 
         st.subheader('Exponential Distribution')
     else:
         st.subheader(f'Exponential Distribution - {pathogen}')
+        display_microbial_group(data, pathogen)
     st.latex("1 - exp(-k \\times dose)")
 
     k_key = (f'k_exp_{identifier}', 0.1)
@@ -168,13 +172,14 @@ def display_exponential(identifier, pathogen = 'None', k_optimal=0.0, is_optimal
 
 
 
-def display_beta_poisson_regular(identifier, pathogen = 'None', alpha_optimal=0.1, beta_optimal=0.1, is_optimal=False):
+def display_beta_poisson_regular(data, identifier, pathogen = 'None', alpha_optimal=0.1, beta_optimal=0.1, is_optimal=False):
     
     
     if is_optimal == False: 
         st.subheader('Beta-Poisson-Regular')
     else:
         st.subheader(f'Beta-Poisson-Regular - {pathogen}') 
+        display_microbial_group(data, pathogen)
     st.latex("1 - [1 + \\frac{dose}{\\beta}]^{-\\alpha}")
 
     alpha_key = (f'alpha_beta_{identifier}', 0.1)
@@ -245,12 +250,13 @@ def display_beta_poisson_approximate_beta(identifier):
     st.write(f'The calculated risk for beta-poisson approximate (Beta) distribution is: {risk:.4f}')
 
 
-def display_beta_poisson_approximate_n50(identifier, pathogen = 'None', alpha_optimal=0.0, n50_optimal=0.0, is_optimal=False):
+def display_beta_poisson_approximate_n50(data, identifier, pathogen = 'None', alpha_optimal=0.0, n50_optimal=0.0, is_optimal=False):
 
     if is_optimal == False: 
         st.subheader('Beta-Poisson-Approximate')
     else:
         st.subheader(f'Beta-Poisson-Approximate - {pathogen}')
+        display_microbial_group(data, pathogen)
     st.latex("1 - [1 + dose \\times \\frac{(2^{\\frac{1}{\\alpha}} - 1)}{N_{50}}]^{-\\alpha}")
     for_dose = for_dose_button(identifier)
     plot_dist_ = plot_dist_button(identifier)
@@ -345,11 +351,11 @@ def display_selection(key, data, pathogen_names_list):
         key=f"nonpathogen_{key}")
         
         if 'k' in data[selection_pathogen]:
-            display_exponential(key+'optimal', selection_pathogen, data[selection_pathogen]['k'], True)
+            display_exponential(data, key+'optimal', selection_pathogen, data[selection_pathogen]['k'], True)
         elif 'beta' in data[selection_pathogen]:
-            display_beta_poisson_regular(key+'optimal', selection_pathogen, data[selection_pathogen]['a'], data[selection_pathogen]['beta'], True)
+            display_beta_poisson_regular(data, key+'optimal', selection_pathogen, data[selection_pathogen]['a'], data[selection_pathogen]['beta'], True)
         elif 'n50' in data[selection_pathogen]:
-            display_beta_poisson_approximate_n50(key+'optimal', selection_pathogen, data[selection_pathogen]['a'], data[selection_pathogen]['n50'], True)
+            display_beta_poisson_approximate_n50(data, key+'optimal', selection_pathogen, data[selection_pathogen]['a'], data[selection_pathogen]['n50'], True)
 
 
 
