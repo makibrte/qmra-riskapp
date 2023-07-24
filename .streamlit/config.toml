@@ -1,3 +1,0 @@
-[server]
-sslCertFile = '/etc/letsencrypt/live/qmrawiki.org/fullchain.pem'
-sslKeyFile = '/etc/letsencrypt/live/qmrawiki.org/privkey.pem'
