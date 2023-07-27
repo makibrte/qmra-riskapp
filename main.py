@@ -16,27 +16,36 @@ st.set_page_config(page_title="Distribution Calculator")
 
 st.title('Pathogen Distribution Calculator')
 st.divider() 
-
+#cache is used so the function does not call the endpoint every point the app reruns 
 @st.cache_data
-def get_pathogens():
-    
-    response = requests.get('https://qmrawiki.org/data/pathogens.json')
+def get_pathogens(url:str = 'https://qmrawiki.org/data/pathogens.json') -> [{}, tuple]:
+    '''
+    Function that takes a url for an endpoint that serves pathogen data from the WIKI.
+    It converts the json response into an appropriate dict.
+
+        params: 
+            url (str): url for the endpoint
+        returns:
+            pathogen_dict (dict(pathogen_name : {})): dictionary for all the pathogen data
+            pathogen_names (tuple): tuple of all pathogen names
+    '''
+
+    response = requests.get(url)
     data = json.loads(response.content)['pathogens']
     pathogen_dict = {}
+    pathogen_names = []
+    #loop for extracting info
     for pathogen in data:
         name = data[pathogen]['pathogen_name']
+        pathogen_names.append(name)
         pathogen_dict[name] = {}
         for path in data[pathogen]:
             if path != 'pathogen_name':
                 pathogen_dict[name][path] = data[pathogen][path]
 
     
-    return pathogen_dict
+    return [pathogen_dict, tuple(pathogen_names)]
 
-@st.cache_data
-def get_pathogen_names(pathogen_dict):
-    pathogen__names_list = [pathogen for pathogen in pathogen_dict]
-    return tuple(pathogen__names_list)
 
 def display_microbial_group(data, pathogen):
     st.write(f'Microbial group: {data[pathogen]["microbial_group"]}')
@@ -44,6 +53,15 @@ def display_microbial_group(data, pathogen):
 
     
 def for_dose_button(identifier):
+    '''
+    Gives you selection if to calculate for dose or not. Displays a button.
+        
+        params:
+            identifier (str): unique key for st component
+        returns:
+            tog.st_toggle_switch (tog obj): button 
+
+    '''
     return tog.st_toggle_switch(label="Calculate for Dose", 
                         key=f"for_dose_button_{identifier}", 
                         default_value=False, 
@@ -54,6 +72,13 @@ def for_dose_button(identifier):
                         )
 
 def plot_dist_button(identifier):
+    '''
+    Function to call for a plot when selected. Displays a button.
+        params:
+            identifier (str): unique key for st component
+        returns:
+            tog.st_toggle_switch (tog obj): button 
+    '''
     return tog.st_toggle_switch(label="Plot the Distribution", 
                         key=f"for_plot_button_{identifier}_{identifier*54}", 
                         default_value=False, 
@@ -63,9 +88,16 @@ def plot_dist_button(identifier):
                         track_color="#29B5E8"
                         )
 
-def calc_plot_dist(epsilon=1e-6, n_steps_after_convergence=4, **kwargs):
+def calc_plot_dist(epsilon=1e-6, n_steps_after_convergence=4, **kwargs) -> [[], []]:
     """
     FUNCTION TO CALCULATE THE VALUES FOR THE PLOT BASED ON THE DIST
+
+        params:
+            epsilon (float): difference between values when convergence is detected
+            n_steps_after_convergence (int): steps when convergence occurs and the calculation breaks
+            **kwargs (dict): parameters for models
+        returns:
+            [dose_range([float]), risk_range(float)]: dose range for the plot and risk range
     """
     dose_range = np.logspace(-2, 300000, num=100000, base=10.0)
     risk_range = []
@@ -101,8 +133,15 @@ def calc_plot_dist(epsilon=1e-6, n_steps_after_convergence=4, **kwargs):
     return [dose_range[:len(risk_range)], risk_range]
 
 
-def session_state_loader(**kwargs):
+def session_state_loader(**kwargs) -> None:
+    '''
+    Loads in the parameters into session state.
 
+        params:
+            **kwargs (dict): dictionary of parameters
+        returns:
+            None
+    '''
 
     if not st.session_state:
         for arg in kwargs:
@@ -112,12 +151,25 @@ def session_state_loader(**kwargs):
             if kwargs[arg][0] not in st.session_state:
                 st.session_state[kwargs[arg][0]] = kwargs[arg][1]
 
-
+#sets the two columns for displaying views 
 left_column, right_column = st.columns(2)
 
 
-def display_exponential(data, identifier, pathogen = 'None', k_optimal=0.0, is_optimal = False, for_dose = False):
-    
+def display_exponential(data, identifier, pathogen = 'None', k_optimal=0.0, is_optimal = False, for_dose = False) -> None:
+    '''
+    Displays exponential model.
+
+        params:
+            data (dict): pathogen data dictionary
+            identifier (str): key for streamlit components
+            pathogen (str): pathogen name, default='None'
+            k_optimal (float): optimal parameter for k, default=0.0
+            is_optimal (bool): determines if a pathogen has been selected or a pathogen opt model(True), default=False
+            for_dose (bool): determines if it is calculated for dose or not, default=False
+        returns:
+            None
+
+    '''
     if is_optimal == False: 
         st.subheader('Exponential Distribution')
     else:
@@ -172,9 +224,20 @@ def display_exponential(data, identifier, pathogen = 'None', k_optimal=0.0, is_o
 
 
 
-def display_beta_poisson_regular(data, identifier, pathogen = 'None', alpha_optimal=0.1, beta_optimal=0.1, is_optimal=False):
+def display_beta_poisson_regular(data, identifier, pathogen = 'None', alpha_optimal=0.1, beta_optimal=0.1, is_optimal=False) -> None:
     
-    
+    '''
+    params:
+            data (dict): pathogen data dictionary
+            identifier (str): key for streamlit components
+            pathogen (str): pathogen name, default='None'
+            alpha_optimal (float): optimal parameter for alpha, default=0.1
+            beta_optimal (float): optimal parameter for beta, default=0.1
+            is_optimal (bool): determines if a pathogen has been selected or a pathogen opt model(True), default=False
+        returns:
+            None
+    '''
+
     if is_optimal == False: 
         st.subheader('Beta-Poisson-Regular')
     else:
@@ -231,7 +294,16 @@ def display_beta_poisson_regular(data, identifier, pathogen = 'None', alpha_opti
 
 
 
-def display_beta_poisson_approximate_beta(identifier):
+def display_beta_poisson_approximate_beta(identifier) -> None:
+    '''
+    Function to display approx beta poisson with entered beta parameter. Converts beta into n50 and calculates
+    the model
+
+        params:
+            identifier (str): unique key for st components
+        returns:
+            None
+    '''
     st.subheader('Beta-Poisson Distribution - Approximate (Beta)')
     st.latex("N_{50} = \\beta * [2^{\\frac{1}{\\alpha}} - 1]")
     st.latex("1 - [1 + dose \\times \\frac{(2^{\\frac{1}{\\alpha}} - 1)}{N_{50}}]^{-\\alpha}")
@@ -250,8 +322,20 @@ def display_beta_poisson_approximate_beta(identifier):
     st.write(f'The calculated risk for beta-poisson approximate (Beta) distribution is: {risk:.4f}')
 
 
-def display_beta_poisson_approximate_n50(data, identifier, pathogen = 'None', alpha_optimal=0.0, n50_optimal=0.0, is_optimal=False):
+def display_beta_poisson_approximate_n50(data, identifier, pathogen = 'None', alpha_optimal=0.0, n50_optimal=0.0, is_optimal=False) -> None:
+    '''
+    Displays approx beta poisson model. Can take in a pathogen and optimal parameters or default model selection.
 
+        params:
+            data (dict): pathogen data dictionary
+            identifier (str): key for streamlit components
+            pathogen (str): pathogen name, default='None'
+            alpha_optimal (float): optimal parameter for alpha, default=0.0
+            n50_optimal (float): optimal parameter for n50, default=0.0
+            is_optimal (bool): determines if a pathogen has been selected or a pathogen opt model(True), default=False
+        returns:
+            None
+    '''
     if is_optimal == False: 
         st.subheader('Beta-Poisson-Approximate')
     else:
@@ -319,8 +403,19 @@ def display_beta_poisson_approximate_n50(data, identifier, pathogen = 'None', al
         
         
 
-def display_selection(key, data, pathogen_names_list):
-    
+def display_selection(key, data, pathogen_names_list) -> None:
+    '''
+    Gives the user the choice to choose between selecting a model and a pathogen. Based on the selection,
+    calls the appropriate function.
+
+        params:
+            key (str): identifier for the display view as streamlit needs different keys for multiple instances of a component.
+            data (dict): pathogen dictionary with parameters
+            pathogen_names_list (tuple): list of pathogen names for the st.selectbox component
+        returns:
+            None
+
+    '''
     #URL PARSING
     if "pathogen" in st.experimental_get_query_params():
         initial_selection = st.selectbox("Choose a Distribution or a Pathogen",
@@ -328,6 +423,7 @@ def display_selection(key, data, pathogen_names_list):
     else:
         initial_selection = st.selectbox("Choose a Distribution or a Pathogen",
             ('Distribution', 'Pathogen'), key=key+'123')
+    
     if initial_selection == 'Distribution':
 
         selection = st.selectbox("Choose a Distribution",
@@ -362,8 +458,8 @@ def display_selection(key, data, pathogen_names_list):
 def main():
     
     
-    data = get_pathogens()
-    pathogen_names = get_pathogen_names(data)
+    data, pathogen_names = get_pathogens()
+    
     
     with left_column:
         st.header("Box 1") 
